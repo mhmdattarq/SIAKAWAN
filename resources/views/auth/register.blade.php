@@ -65,14 +65,14 @@
                                         </div>
                                         <div class="col-12 ">
                                             <label for="username" class="form-label"><span
-                                                    style="color: red">*</span>Nama Panggilan</label>
+                                                    style="color: red">*</span>Username</label>
                                             <div class="ms-auto position-relative">
                                                 <div
                                                     class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                     <i class="bi bi-person-circle"></i>
                                                 </div>
                                                 <input type="text" class="form-control radius-30 ps-5" id="username"
-                                                    name="username" placeholder="Masukkan Nama Panggilan Anda.."
+                                                    name="username" placeholder="Masukkan Username Anda.."
                                                     value="{{ old('username') }}">
                                             </div>
                                             @error('username')

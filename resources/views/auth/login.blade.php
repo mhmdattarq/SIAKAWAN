@@ -38,15 +38,18 @@
                                     @csrf
                                     <div class="col-12">
                                         <label for="inputChoosePassword" class="form-label">
-                                            Nama</label>
+                                            Username</label>
                                         <div class="ms-auto position-relative">
                                             <div class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                 <i class="fadeIn animated bx bx-user"></i>
                                             </div>
                                             <input type="text" name="username" id="username"
                                                 value="{{ old('username') }}" class="form-control radius-30 ps-5"
-                                                placeholder="Masukkan Nama Anda">
+                                                placeholder="Masukkan Username Anda">
                                         </div>
+                                        @error('username')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                     <div class="col-12">
                                         <label for="inputChoosePassword" class="form-label">
@@ -59,6 +62,9 @@
                                                 value="{{ old('password') }}" class="form-control radius-30 ps-5"
                                                 placeholder="Masukkan Password Anda">
                                         </div>
+                                        @error('password')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                     <div class="col-6">
                                         <div class="form-check">
