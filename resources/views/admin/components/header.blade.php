@@ -19,20 +19,9 @@
                                     class="rounded-circle" width="54" height="54">
                                 <div class="ms-3">
                                     <h6 class="mb-0 dropdown-user-name">{{ auth()->user()->username }}</h6>
-                                    <small class="mb-0 dropdown-user-designation text-secondary">Halo!
+                                    <small class="mb-0 dropdown-user-designation text-secondary">Selamat Datang!
                                         {{ auth()->user()->username }}</small>
                                 </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="pages-user-profile.html">
-                            <div class="d-flex align-items-center">
-                                <div class=""><i class="bi bi-person-fill"></i></div>
-                                <div class="ms-3"><span>Profile</span></div>
                             </div>
                         </a>
                     </li>

@@ -9,6 +9,7 @@
 <link href="{{ asset('backend/assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
 <link href="{{ asset('backend/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" />
 <link href="{{ asset('backend/assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('backend/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
 <!-- Bootstrap CSS -->
 <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
 <link href="{{ asset('backend/assets/css/bootstrap-extended.css') }}" rel="stylesheet" />

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 
 class DatakaryawanController extends Controller
@@ -12,7 +13,8 @@ class DatakaryawanController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.data-karyawan');
+        $karyawan = Karyawan::all();
+        return view('admin.pages.data-karyawan', compact('karyawan'));
     }
 
     /**

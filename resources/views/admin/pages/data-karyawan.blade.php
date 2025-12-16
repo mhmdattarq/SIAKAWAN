@@ -8,23 +8,27 @@
                 <table id="example2" class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Tempat Lahir</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Nomor Handphone</th>
+                            <th>Alamat</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                        </tr>
+                        @foreach ($karyawan as $data)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $data->nama }}</td>
+                                <td>{{ $data->email }}</td>
+                                <td>{{ $data->tempat_lahir }}</td>
+                                <td>{{ $data->tanggal_lahir }}</td>
+                                <td>{{ $data->no_hp }}</td>
+                                <td>{{ $data->alamat }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
