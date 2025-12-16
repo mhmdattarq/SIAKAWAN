@@ -47,7 +47,7 @@
             <div class="menu-title">Pengajuan Izin</div>
         </a>
     </li>
-    <li class="menu-label">LAPORAN</li>
+    <li class="menu-label">KEPERLUAN</li>
     <li>
         <a href="{{ route('admin.laporan') }}">
             <div class="parent-icon"><i class="fadeIn animated bx bx-book-add"></i>

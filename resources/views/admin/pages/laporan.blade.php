@@ -1,6 +1,16 @@
 @extends('admin.layout.app')
 @section('content')
-    <h6 class="mb-0 text-uppercase">Laporan </h6>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><span>KEPERLUAN</span>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Laporan</li>
+            </ol>
+        </nav>
+    </div>
+    <br>
+    <h6 class="mb-0 text-uppercase">Laporan</h6>
     <hr />
     <div class="card">
         <div class="card-body">
