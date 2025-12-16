@@ -200,7 +200,7 @@
                                         <div class="col-12">
                                             <div class="d-grid">
                                                 <button type="submit"
-                                                    class="btn btn-primary radius-30">Daftar</button>
+                                                    class="btn btn-success radius-30">Daftar</button>
                                             </div>
                                         </div>
                                         <div class="col-12">
