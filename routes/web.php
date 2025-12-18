@@ -48,6 +48,7 @@ Route::middleware(['role:karyawan'])->group(function () {
     Route::get('/Profil-karyawan', [ProfilController::class, 'index'])->name('karyawan.profil');
     // Profil Karyawan
     Route::get('/Absensi-karyawan-hari-ini', [AbsensiKaryawanController::class, 'index'])->name('karyawan.absensi');
+    Route::post('/Absen-masuk', [AbsensiKaryawanController::class, 'store'])->name('absen.store');
     // Profil Karyawan
     Route::get('/Pengajuan-izin-Karyawan', [PengajuanIzinKaryawanController::class, 'index'])->name('karyawan.pengajuanizin');
     // Profil Karyawan

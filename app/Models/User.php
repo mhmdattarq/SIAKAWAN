@@ -44,4 +44,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    // App\Models\User.php
+    public function karyawan()
+    {
+        return $this->hasOne(Karyawan::class, 'user_id');
+    }
+
+    public function absensiHariIni()
+    {
+        return $this->hasMany(\App\Models\d_absensi_hari_ini::class);
+    }
 }
