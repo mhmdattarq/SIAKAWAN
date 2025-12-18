@@ -19,7 +19,7 @@
                         <tr>
                             <th>No</th>
                             <th>Tanggal</th>
-                            <th>Nama</th>
+                            <th>Nama Lengkap</th>
                             <th>Jam Masuk</th>
                             <th>Jam Pulang</th>
                             <th>Status Masuk</th>

@@ -50,7 +50,7 @@
                                 <input type="hidden" name="latitude" id="latitude">
                                 <input type="hidden" name="longitude" id="longitude">
                                 <div class="row mb-3">
-                                    <label for="nama" class="col-sm-3 col-form-label">Nama</label>
+                                    <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="nama" name="nama"
                                             value="{{ auth()->user()->karyawan->nama }}" readonly>
@@ -149,7 +149,7 @@
                         <tr>
                             <th>No</th>
                             <th>Tanggal</th>
-                            <th>Nama</th>
+                            <th>Nama Lengkap</th>
                             <th>Jam Masuk</th>
                             <th>Jam Pulang</th>
                             <th>Status Masuk</th>

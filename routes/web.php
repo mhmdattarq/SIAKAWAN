@@ -36,6 +36,7 @@ Route::middleware(['role:admin'])->group(function () {
     Route::get('/Data-Absensi', [DataAbsensiController::class, 'index'])->name('admin.dataabsensi');
     // pengajuan izin
     Route::get('/Pengajuan-Izin', [PengajuanIzinController::class, 'index'])->name('admin.pengajuanizin');
+    Route::put('/Kelola-Izin', [PengajuanIzinController::class, 'update'])->name('pengajuanizin.update');
     // Laporan
     Route::get('/Laporan', [LaporanController::class, 'index'])->name('admin.laporan');
     // settings
@@ -51,6 +52,7 @@ Route::middleware(['role:karyawan'])->group(function () {
     Route::post('/Absen-masuk', [AbsensiKaryawanController::class, 'store'])->name('absen.store');
     // Profil Karyawan
     Route::get('/Pengajuan-izin-Karyawan', [PengajuanIzinKaryawanController::class, 'index'])->name('karyawan.pengajuanizin');
+    Route::post('/Pengajuan-izin', [PengajuanIzinKaryawanController::class, 'store'])->name('pengajuanizin.store');
     // Profil Karyawan
     Route::get('/Riwayat-izin-Karyawan', [RiwayatAbsensiKaryawanController::class, 'index'])->name('karyawan.riwayatabsensi');
 });

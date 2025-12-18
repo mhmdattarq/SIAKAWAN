@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\PengajuanIzin;
 
 class PengajuanIzinController extends Controller
 {
@@ -12,7 +13,8 @@ class PengajuanIzinController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.pengajuan-izin');
+        $pengajuan = PengajuanIzin::all();
+        return view('admin.pages.pengajuan-izin', compact('pengajuan'));
     }
 
     /**
@@ -52,8 +54,21 @@ class PengajuanIzinController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'status' => 'required|in:disetujui,ditolak',
+            'alasan' => 'nullable|required_if:status,ditolak'
+        ]);
+
+        $izin = PengajuanIzin::findOrFail($id);
+
+        $izin->update([
+            'status' => $request->status,
+            'alasan' => $request->status == 'ditolak' ? $request->alasan : null,
+        ]);
+
+        return redirect()->back()->with('success', 'Status izin berhasil diperbarui');
     }
+
 
     /**
      * Remove the specified resource from storage.
