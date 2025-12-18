@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Karyawan;
 
 use App\Http\Controllers\Controller;
+use App\Models\d_absensi_hari_ini;
 use Illuminate\Http\Request;
 
 class RiwayatAbsensiKaryawanController extends Controller
@@ -12,7 +13,12 @@ class RiwayatAbsensiKaryawanController extends Controller
      */
     public function index()
     {
-        return view('karyawan.pages.riwayat-absensi');
+        $riwayat = d_absensi_hari_ini::with('karyawan')
+            ->milikSaya()
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
+        return view('karyawan.pages.riwayat-absensi', compact('riwayat'));
     }
 
     /**

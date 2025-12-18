@@ -2,26 +2,25 @@
 @section('content')
     <h6 class="mb-0 text-uppercase">Absensi Hari ini</h6>
     <hr />
+    {{-- error --}}
     @if ($errors->any())
         <div class="alert alert-danger">
             {{ $errors->first() }}
         </div>
     @endif
-
     <div class="col">
         <!-- Button trigger modal -->
         @if (!$absensiHariIni)
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">Absen
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">Absen
                 Masuk</button>
         @elseif (!$absensiHariIni->jam_pulang)
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">Absen
                 Pulang</button>
         @else
-            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleLargeModal"
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleLargeModal"
                 disabled>Sudah
                 Absen</button>
         @endif
-
         <!-- Modal -->
         <div class="modal fade" id="exampleLargeModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -99,6 +98,38 @@
         </div>
     </div>
     <br>
+    {{-- Alert --}}
+    @if (!$absensiHariIni)
+        <div class="alert border-0 border-info border-start border-4 bg-light-info alert-dismissible fade show py-2">
+            <div class="d-flex align-items-center">
+                <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                </div>
+                <div class="ms-3">
+                    <div class="text-info">Silahkan Melakukan Absen Untuk Masuk Jika Anda Ingin Bekerja!</div>
+                </div>
+            </div>
+        </div>
+    @elseif (!$absensiHariIni->jam_pulang)
+        <div class="alert border-0 border-info border-start border-4 bg-light-info alert-dismissible fade show py-2">
+            <div class="d-flex align-items-center">
+                <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+                </div>
+                <div class="ms-3">
+                    <div class="text-info">Silahkan Melakukan Absen Jika Anda Ingin Pulang!</div>
+                </div>
+            </div>
+        </div>
+    @else
+        <div class="alert border-0 border-success border-start border-4 bg-light-success alert-dismissible fade show py-2">
+            <div class="d-flex align-items-center">
+                <div class="fs-3 text-success"><i class="bi bi-check-circle-fill"></i>
+                </div>
+                <div class="ms-3">
+                    <div class="text-success">Terimakasih, Anda Sudah Berhasil Absen!</div>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -115,7 +146,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($absensi as $item)
+                        @foreach ($absensiAktif as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>

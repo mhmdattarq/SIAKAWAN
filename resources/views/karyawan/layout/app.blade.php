@@ -35,13 +35,6 @@
         <!--Start Back To Top Button-->
         <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
         <!--End Back To Top Button-->
-
-        <!--start switcher-->
-        <div class="switcher-body">
-            @include('karyawan.components.switcher')
-        </div>
-        <!--end switcher-->
-
     </div>
     <!--end wrapper-->
 

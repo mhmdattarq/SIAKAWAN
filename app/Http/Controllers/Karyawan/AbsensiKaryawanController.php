@@ -13,19 +13,22 @@ class AbsensiKaryawanController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $today = Carbon::today();
 
-        // absensi hari ini (khusus user login)
-        $absensiHariIni = d_absensi_hari_ini::where('user_id', $user->id)
-            ->where('tanggal', $today)
+        // 🔹 untuk LOGIKA TOMBOL
+        $absensiHariIni = d_absensi_hari_ini::milikSaya()
+            ->hariIni()
             ->first();
 
-        $absensi = d_absensi_hari_ini::with('karyawan')
-            ->orderBy('tanggal', 'desc')
+        // 🔹 untuk TABEL (hanya yang belum pulang)
+        $absensiAktif = d_absensi_hari_ini::milikSaya()
+            ->hariIni()
+            ->whereNull('jam_pulang')
             ->get();
 
-
-        return view('karyawan.pages.absensi-karyawan', compact('absensi', 'absensiHariIni'));
+        return view('karyawan.pages.absensi-karyawan', compact(
+            'absensiHariIni',
+            'absensiAktif'
+        ));
     }
 
     public function store(Request $request)
