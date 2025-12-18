@@ -1,16 +1,6 @@
 @extends('admin.layout.app')
 @section('content')
-    <div class="ps-3">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><span>KARYAWAN</span>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Pengajuan Izin</li>
-            </ol>
-        </nav>
-    </div>
-    <br>
-    <h6 class="mb-0 text-uppercase">Pengajuan Izin</h6>
+    <h6 class="mb-0 text-uppercase">Data Pengajuan Izin Karyawan</h6>
     <hr />
     <div class="card">
         <div class="card-body">

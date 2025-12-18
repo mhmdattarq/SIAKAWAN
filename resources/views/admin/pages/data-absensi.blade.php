@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 @section('content')
-    <h6 class="mb-0 text-uppercase">Data Absensi</h6>
+    <h6 class="mb-0 text-uppercase">Data Absensi Karyawan</h6>
     <hr />
     <div class="card">
         <div class="card-body">

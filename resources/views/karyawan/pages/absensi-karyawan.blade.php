@@ -11,11 +11,22 @@
     <div class="col">
         <!-- Button trigger modal -->
         @if (!$absensiHariIni)
-            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">Absen
-                Masuk</button>
+            @if ($bolehAbsenMasuk)
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">Absen
+                    Masuk</button>
+            @else
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleLargeModal"
+                    disabled>Absen Masuk Ditutup</button>
+            @endif
         @elseif (!$absensiHariIni->jam_pulang)
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">Absen
-                Pulang</button>
+            @if ($bolehAbsenPulang)
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#exampleLargeModal">Absen
+                    Pulang</button>
+            @else
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleLargeModal"
+                    disabled>Absen Pulang</button>
+            @endif
         @else
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleLargeModal"
                 disabled>Sudah
@@ -99,7 +110,7 @@
     </div>
     <br>
     {{-- Alert --}}
-    @if (!$absensiHariIni)
+    @if ($alertMasuk)
         <div class="alert border-0 border-info border-start border-4 bg-light-info alert-dismissible fade show py-2">
             <div class="d-flex align-items-center">
                 <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
@@ -109,7 +120,7 @@
                 </div>
             </div>
         </div>
-    @elseif (!$absensiHariIni->jam_pulang)
+    @elseif ($alertPulang)
         <div class="alert border-0 border-info border-start border-4 bg-light-info alert-dismissible fade show py-2">
             <div class="d-flex align-items-center">
                 <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
@@ -119,7 +130,7 @@
                 </div>
             </div>
         </div>
-    @else
+    @elseif ($alertSelesai)
         <div class="alert border-0 border-success border-start border-4 bg-light-success alert-dismissible fade show py-2">
             <div class="d-flex align-items-center">
                 <div class="fs-3 text-success"><i class="bi bi-check-circle-fill"></i>

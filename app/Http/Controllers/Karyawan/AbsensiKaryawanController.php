@@ -12,28 +12,63 @@ class AbsensiKaryawanController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $user  = Auth::user();
+        $now   = Carbon::now('Asia/Jakarta');
+        $today = Carbon::today('Asia/Jakarta');
 
-        // 🔹 untuk LOGIKA TOMBOL
-        $absensiHariIni = d_absensi_hari_ini::milikSaya()
-            ->hariIni()
+        $absensiHariIni = d_absensi_hari_ini::where('user_id', $user->id)
+            ->where('tanggal', $today)
             ->first();
 
-        // 🔹 untuk TABEL (hanya yang belum pulang)
-        $absensiAktif = d_absensi_hari_ini::milikSaya()
-            ->hariIni()
+        // ===============================
+        // FLAG UNTUK ALERT
+        // ===============================
+        $alertMasuk  = false;
+        $alertPulang = false;
+        $alertSelesai = false;
+
+        if (!$absensiHariIni) {
+
+            // waktu absen masuk
+            $mulaiMasuk = $today->copy()->setTime(7, 59);
+            $batasMasuk = $today->copy()->setTime(8, 30);
+
+            if ($now->between($mulaiMasuk, $batasMasuk)) {
+                $alertMasuk = true;
+            }
+        } elseif (!$absensiHariIni->jam_pulang) {
+
+            // waktu absen pulang
+            $mulaiPulang = $today->copy()->setTime(16, 0);
+
+            if ($now->greaterThanOrEqualTo($mulaiPulang)) {
+                $alertPulang = true;
+            }
+        } else {
+            $alertSelesai = true;
+        }
+
+        // tabel
+        $absensiAktif = d_absensi_hari_ini::where('user_id', $user->id)
+            ->where('tanggal', $today)
             ->whereNull('jam_pulang')
             ->get();
 
         return view('karyawan.pages.absensi-karyawan', compact(
             'absensiHariIni',
-            'absensiAktif'
+            'absensiAktif',
+            'alertMasuk',
+            'alertPulang',
+            'alertSelesai'
         ));
     }
 
+
     public function store(Request $request)
     {
-        //VALIDASI INPUT
+        // ===============================
+        // VALIDASI GPS
+        // ===============================
         $request->validate([
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
@@ -42,36 +77,54 @@ class AbsensiKaryawanController extends Controller
             'longitude.required' => 'Lokasi belum terdeteksi, aktifkan GPS.',
         ]);
 
-        //DATA DASAR NYA
-        $user = Auth::user();
-        $today = Carbon::today('Asia/Jakarta');
+        $user  = Auth::user();
         $now   = Carbon::now('Asia/Jakarta');
+        $today = Carbon::today('Asia/Jakarta');
 
         $lat = $request->latitude;
         $lng = $request->longitude;
 
-        //SET KOORDINAT KANTOR
-        $officeLat = 1.68011;
-        $officeLng = 101.42183;
+        // ===============================
+        // KOORDINAT KANTOR
+        // ===============================
+        $officeLat   = 1.68011;
+        $officeLng   = 101.42183;
         $maxDistance = 100; // meter
 
-        //HITUNG JARAK AMAN 
         $distance = $this->distance($lat, $lng, $officeLat, $officeLng);
 
         if ($distance > $maxDistance) {
-            return back()->with('error', 'Anda harus berada di area kantor untuk absen.');
+            return back()->withErrors('Anda harus berada di area kantor untuk absen.');
         }
 
-        //CEK ABSENSI HARI INI
+        // ===============================
+        // CEK ABSENSI HARI INI
+        // ===============================
         $absensi = d_absensi_hari_ini::where('user_id', $user->id)
             ->where('tanggal', $today)
             ->first();
 
-        //ABSEN MASUK
+        // ===============================
+        // ABSEN MASUK
+        // ===============================
         if (!$absensi) {
 
-            $jamMasukBatas = $today->copy()->setTime(8, 0, 0);
-            $statusMasuk = $now->greaterThan($jamMasukBatas)
+            $jamMulaiMasuk  = $today->copy()->setTime(7, 59, 0);
+            $jamBatasMasuk  = $today->copy()->setTime(8, 30, 0);
+            $jamTelatMasuk  = $today->copy()->setTime(8, 0, 0);
+
+            // ❌ belum jam masuk
+            if ($now->lessThan($jamMulaiMasuk)) {
+                return back()->withErrors('Absen masuk belum dibuka.');
+            }
+
+            // ❌ lewat 30 menit
+            if ($now->greaterThan($jamBatasMasuk)) {
+                return back()->withErrors('Waktu absen masuk sudah berakhir.');
+            }
+
+            // STATUS MASUK
+            $statusMasuk = $now->greaterThan($jamTelatMasuk)
                 ? 'terlambat'
                 : 'hadir';
 
@@ -87,16 +140,28 @@ class AbsensiKaryawanController extends Controller
             return back()->with('success', 'Absen masuk berhasil.');
         }
 
-        //CEK ABSEN SUDAH PULANG
+        // ===============================
+        // CEK SUDAH PULANG
+        // ===============================
         if ($absensi->jam_pulang) {
-            return back()->with('error', 'Anda sudah absen pulang hari ini.');
+            return back()->withErrors('Anda sudah absen pulang hari ini.');
         }
 
-        //ABSEN PULANG
-        $jamPulangBatas = $today->copy()->setTime(17, 0, 0);
-        $statusPulang = $now->lessThan($jamPulangBatas)
+        // ===============================
+        // ABSEN PULANG
+        // ===============================
+        $jamPulangMinimal = $today->copy()->setTime(16, 0, 0);
+        $jamNormalPulang  = $today->copy()->setTime(17, 0, 0);
+
+        // ❌ belum jam pulang
+        if ($now->lessThan($jamPulangMinimal)) {
+            return back()->withErrors('Absen pulang baru dibuka jam 16:00.');
+        }
+
+        $statusPulang = $now->lessThan($jamNormalPulang)
             ? 'pulang_cepat'
             : 'normal';
+
         $absensi->update([
             'jam_pulang'    => $now->toTimeString(),
             'status_pulang' => $statusPulang,

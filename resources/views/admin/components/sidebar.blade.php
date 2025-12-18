@@ -40,14 +40,14 @@
             <div class="menu-title">Data Absensi</div>
         </a>
     </li>
-    {{-- <li>
+    <li>
         <a href="{{ route('admin.pengajuanizin') }}">
-            <div class="parent-icon"><i class="fadeIn animated bx bx-user-plus"></i>
+            <div class="parent-icon"><i class="fadeIn animated bx bx-bar-chart-square"></i>
             </div>
-            <div class="menu-title">Pengajuan Izin</div>
+            <div class="menu-title">Data Pengajuan Izin</div>
         </a>
     </li>
-    <li class="menu-label">KEPERLUAN</li>
+    {{-- <li class="menu-label">KEPERLUAN</li>
     <li>
         <a href="{{ route('admin.laporan') }}">
             <div class="parent-icon"><i class="fadeIn animated bx bx-book-add"></i>
