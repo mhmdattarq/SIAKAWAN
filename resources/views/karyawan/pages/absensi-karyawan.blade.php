@@ -10,8 +10,18 @@
 
     <div class="col">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">Absen
-            Masuk</button>
+        @if (!$absensiHariIni)
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">Absen
+                Masuk</button>
+        @elseif (!$absensiHariIni->jam_pulang)
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">Absen
+                Pulang</button>
+        @else
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleLargeModal"
+                disabled>Sudah
+                Absen</button>
+        @endif
+
         <!-- Modal -->
         <div class="modal fade" id="exampleLargeModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -92,26 +102,30 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example2" class="table table-striped table-bordered">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>No</th>
+                            <th>Tanggal</th>
+                            <th>Nama</th>
+                            <th>Jam Masuk</th>
+                            <th>Jam Pulang</th>
+                            <th>Status Masuk</th>
+                            <th>Status Pulang</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                        </tr>
+                        @foreach ($absensi as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
+                                <td>{{ $item->karyawan->nama }}</td>
+                                <td>{{ $item->jam_masuk }}</td>
+                                <td>{{ $item->jam_pulang }}</td>
+                                <td>{{ $item->status_masuk }}</td>
+                                <td>{{ $item->status_pulang }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

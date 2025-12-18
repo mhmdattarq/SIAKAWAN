@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="semi-dark">
+<html lang="en" class="light">
 
 <head>
     @include('karyawan.components.style')

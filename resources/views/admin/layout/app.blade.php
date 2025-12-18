@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark-theme">
+<html lang="en" class="light">
 
 <head>
     @include('admin.components.style')

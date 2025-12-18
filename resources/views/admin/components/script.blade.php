@@ -37,11 +37,3 @@
     new PerfectScrollbar(".review-list");
     new PerfectScrollbar(".chat-talk");
 </script>
-
-<script>
-    setInterval(() => {
-        if (!document.documentElement.classList.contains('dark-theme')) {
-            document.documentElement.className = 'dark-theme';
-        }
-    }, 100);
-</script>

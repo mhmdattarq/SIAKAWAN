@@ -20,4 +20,11 @@ class d_absensi_hari_ini extends Model
         'lat_pulang',
         'lng_pulang',
     ];
+
+    // RELASI KE KARYAWAN
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class, 'user_id', 'user_id');
+        // sesuaikan foreign key kalau beda
+    }
 }

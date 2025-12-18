@@ -12,7 +12,20 @@ class AbsensiKaryawanController extends Controller
 {
     public function index()
     {
-        return view('karyawan.pages.absensi-karyawan');
+        $user = Auth::user();
+        $today = Carbon::today();
+
+        // absensi hari ini (khusus user login)
+        $absensiHariIni = d_absensi_hari_ini::where('user_id', $user->id)
+            ->where('tanggal', $today)
+            ->first();
+
+        $absensi = d_absensi_hari_ini::with('karyawan')
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
+
+        return view('karyawan.pages.absensi-karyawan', compact('absensi', 'absensiHariIni'));
     }
 
     public function store(Request $request)
