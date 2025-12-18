@@ -26,13 +26,13 @@
             <div class="menu-title">Data Karyawan</div>
         </a>
     </li>
-    <li>
+    {{-- <li>
         <a href="{{ route('admin.absensi') }}">
             <div class="parent-icon"><i class="fadeIn animated bx bx-bar-chart-square"></i>
             </div>
             <div class="menu-title">Absensi Hari ini</div>
         </a>
-    </li>
+    </li> --}}
     <li>
         <a href="{{ route('admin.dataabsensi') }}">
             <div class="parent-icon"><i class="fadeIn animated bx bx-spreadsheet"></i>
@@ -40,7 +40,7 @@
             <div class="menu-title">Data Absensi</div>
         </a>
     </li>
-    <li>
+    {{-- <li>
         <a href="{{ route('admin.pengajuanizin') }}">
             <div class="parent-icon"><i class="fadeIn animated bx bx-user-plus"></i>
             </div>
@@ -54,7 +54,7 @@
             </div>
             <div class="menu-title">Laporan</div>
         </a>
-    </li>
+    </li> --}}
     <li class="menu-label">Lainnya</li>
     <li>
         <a href="{{ route('admin.setting') }}">

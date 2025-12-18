@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\d_absensi_hari_ini;
 use Illuminate\Http\Request;
 
 class DataAbsensiController extends Controller
@@ -12,7 +13,8 @@ class DataAbsensiController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.data-absensi');
+        $absensi = d_absensi_hari_ini::all();
+        return view('admin.pages.data-absensi', compact('absensi'));
     }
 
     /**

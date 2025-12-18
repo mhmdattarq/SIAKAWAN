@@ -2,6 +2,15 @@
 @section('content')
     <h6 class="mb-0 text-uppercase">Riwayat Absensi</h6>
     <hr />
+    <div class="alert border-0 border-info border-start border-4 bg-light-info alert-dismissible fade show py-2">
+        <div class="d-flex align-items-center">
+            <div class="fs-3 text-info"><i class="bi bi-info-circle-fill"></i>
+            </div>
+            <div class="ms-3">
+                <div class="text-info">Ini Adalah Data Riwayat Absensi Anda!</div>
+            </div>
+        </div>
+    </div>
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
