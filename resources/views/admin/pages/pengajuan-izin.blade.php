@@ -66,15 +66,15 @@
                 </div>
 
                 <div class="modal-body">
-                    <form action="{{ route('pengajuanizin.update') }}" id="formKelolaIzin" method="POST">
+                    <form action="{{ route('pengajuanizin.update', $item->id) }}" id="formKelolaIzin" method="POST">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" id="izin_id">
+                        <input type="hidden" name="id" id="izin_id">
                         <div class="row mb-3">
                             <label class="col-sm-3 col-form-label">Kelola Izin</label>
                             <div class="col-sm-9">
-                                <select id="status" class="form-select" name="status" required>
-                                    <option value="">-- Kelola Izin Karyawan --</option>
+                                <select name="status" id="status" class="form-select" required>
+                                    <option value="">-- Pilih Status --</option>
                                     <option value="disetujui">Disetujui</option>
                                     <option value="ditolak">Ditolak</option>
                                 </select>
@@ -83,7 +83,7 @@
                         <div class="row mb-3 d-none" id="alasanBox">
                             <label class="col-sm-3 col-form-label">Alasan Ditolak</label>
                             <div class="col-sm-9">
-                                <textarea id="alasan" class="form-control" rows="3" name="alasan"></textarea>
+                                <textarea name="alasan" id="alasan" class="form-control"></textarea>
                             </div>
                         </div>
                     </form>
@@ -91,7 +91,10 @@
 
                 <div class="modal-footer">
                     <button class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
-                    <button class="btn btn-success" id="btnSubmitKelola">Selesaikan</button>
+                    <button type="button" class="btn btn-success" id="btnSubmitKelola">
+                        Selesaikan
+                    </button>
+
                 </div>
             </div>
         </div>
@@ -102,47 +105,32 @@
         document.querySelectorAll('.btnKelola').forEach(btn => {
             btn.addEventListener('click', function() {
                 izinId = this.dataset.id;
+
                 document.getElementById('izin_id').value = izinId;
                 document.getElementById('status').value = '';
                 document.getElementById('alasan').value = '';
                 document.getElementById('alasanBox').classList.add('d-none');
+
+                const form = document.getElementById('formKelolaIzin');
+                form.action = `/Kelola-Izin/${izinId}`;
             });
         });
 
         document.getElementById('status').addEventListener('change', function() {
-            if (this.value === 'ditolak') {
-                document.getElementById('alasanBox').classList.remove('d-none');
-            } else {
-                document.getElementById('alasanBox').classList.add('d-none');
-                document.getElementById('alasan').value = '';
-            }
+            document.getElementById('alasanBox')
+                .classList.toggle('d-none', this.value !== 'ditolak');
         });
 
         document.getElementById('btnSubmitKelola').addEventListener('click', function() {
-            const status = document.getElementById('status').value;
-            const alasan = document.getElementById('alasan').value;
-
-            if (!status) {
-                Swal.fire('Error', 'Status wajib dipilih', 'error');
-                return;
-            }
-
-            if (status === 'ditolak' && !alasan) {
-                Swal.fire('Error', 'Alasan wajib diisi', 'error');
-                return;
-            }
-
             Swal.fire({
                 title: 'Yakin?',
                 text: 'Status izin akan diperbarui',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya, Simpan'
-            }).then(result => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    const form = document.getElementById('formKelolaIzin');
-                    form.action = `/admin/pengajuan-izin/${izinId}`;
-                    form.submit();
+                    document.getElementById('formKelolaIzin').submit();
                 }
             });
         });

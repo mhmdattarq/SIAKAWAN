@@ -52,22 +52,28 @@ class PengajuanIzinController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'status' => 'required|in:disetujui,ditolak',
-            'alasan' => 'nullable|required_if:status,ditolak'
+            'alasan' => 'nullable'
         ]);
 
         $izin = PengajuanIzin::findOrFail($id);
 
         $izin->update([
             'status' => $request->status,
-            'alasan' => $request->status == 'ditolak' ? $request->alasan : null,
+            'alasan' => $request->status === 'ditolak'
+                ? $request->alasan
+                : null
         ]);
 
-        return redirect()->back()->with('success', 'Status izin berhasil diperbarui');
+        return redirect()
+            ->route('admin.pengajuanizin')
+            ->with('success', 'Pengajuan izin berhasil diperbarui');
     }
+
+
 
 
     /**

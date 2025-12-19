@@ -36,7 +36,7 @@ Route::middleware(['role:admin'])->group(function () {
     Route::get('/Data-Absensi', [DataAbsensiController::class, 'index'])->name('admin.dataabsensi');
     // pengajuan izin
     Route::get('/Pengajuan-Izin', [PengajuanIzinController::class, 'index'])->name('admin.pengajuanizin');
-    Route::put('/Kelola-Izin', [PengajuanIzinController::class, 'update'])->name('pengajuanizin.update');
+    Route::put('/Kelola-Izin/{id}', [PengajuanIzinController::class, 'update'])->name('pengajuanizin.update');
     // Laporan
     Route::get('/Laporan', [LaporanController::class, 'index'])->name('admin.laporan');
     // settings

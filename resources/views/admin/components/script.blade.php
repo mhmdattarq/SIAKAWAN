@@ -37,3 +37,4 @@
     new PerfectScrollbar(".review-list");
     new PerfectScrollbar(".chat-talk");
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
