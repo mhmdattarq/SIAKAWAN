@@ -26,26 +26,26 @@ class AbsensiKaryawanController extends Controller
         $alertMasuk  = false;
         $alertPulang = false;
         $alertSelesai = false;
+        $bolehAbsenMasuk  = false;
+        $bolehAbsenPulang = false;
 
         if (!$absensiHariIni) {
 
-            // waktu absen masuk
+            // jam absen masuk
             $mulaiMasuk = $today->copy()->setTime(7, 59);
             $batasMasuk = $today->copy()->setTime(8, 30);
 
             if ($now->between($mulaiMasuk, $batasMasuk)) {
-                $alertMasuk = true;
+                $bolehAbsenMasuk = true;
             }
         } elseif (!$absensiHariIni->jam_pulang) {
 
-            // waktu absen pulang
+            // jam absen pulang
             $mulaiPulang = $today->copy()->setTime(16, 0);
 
             if ($now->greaterThanOrEqualTo($mulaiPulang)) {
-                $alertPulang = true;
+                $bolehAbsenPulang = true;
             }
-        } else {
-            $alertSelesai = true;
         }
 
         // tabel
@@ -59,7 +59,9 @@ class AbsensiKaryawanController extends Controller
             'absensiAktif',
             'alertMasuk',
             'alertPulang',
-            'alertSelesai'
+            'alertSelesai',
+            'bolehAbsenMasuk',
+            'bolehAbsenPulang'
         ));
     }
 

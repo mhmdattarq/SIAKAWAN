@@ -73,7 +73,7 @@
                         <div class="row mb-3">
                             <label class="col-sm-3 col-form-label">Kelola Izin</label>
                             <div class="col-sm-9">
-                                <select id="status" class="form-select" required>
+                                <select id="status" class="form-select" name="status" required>
                                     <option value="">-- Kelola Izin Karyawan --</option>
                                     <option value="disetujui">Disetujui</option>
                                     <option value="ditolak">Ditolak</option>
@@ -83,7 +83,7 @@
                         <div class="row mb-3 d-none" id="alasanBox">
                             <label class="col-sm-3 col-form-label">Alasan Ditolak</label>
                             <div class="col-sm-9">
-                                <textarea id="alasan" class="form-control" rows="3"></textarea>
+                                <textarea id="alasan" class="form-control" rows="3" name="alasan"></textarea>
                             </div>
                         </div>
                     </form>
