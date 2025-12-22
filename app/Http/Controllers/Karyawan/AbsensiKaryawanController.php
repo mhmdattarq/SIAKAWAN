@@ -155,7 +155,7 @@ class AbsensiKaryawanController extends Controller
         $jamPulangMinimal = $today->copy()->setTime(16, 0, 0);
         $jamNormalPulang  = $today->copy()->setTime(17, 0, 0);
 
-        // ❌ belum jam pulang
+        // belum jam pulang
         if ($now->lessThan($jamPulangMinimal)) {
             return back()->withErrors('Absen pulang baru dibuka jam 16:00.');
         }
